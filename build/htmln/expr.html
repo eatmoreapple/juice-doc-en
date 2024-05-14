@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>表达式 &mdash; juice  documentation</title>
+  <title>Expressions &mdash; juice  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="热更新" href="hot_reload.html" />
-    <link rel="prev" title="动态sql" href="dynamic_sql.html" /> 
+    <link rel="prev" title="Dynamic SQL" href="dynamic_sql.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,32 +41,32 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Introduction to Juice</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">配置详情</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration Details</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mappers.html">SQL mappers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="result_mapping.html">结果集映射</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tx.html">事务</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cache.html">缓存</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dynamic_sql.html">动态sql</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">表达式</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id2">表达式</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id3">比较运算符</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">逻辑运算符</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">算术运算符</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">保留关键字</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache.html">Cache Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamic_sql.html">Dynamic SQL</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Expressions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Expressions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#comparison-operators">Comparison Operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logical-operators">Logical Operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arithmetic-operators">Arithmetic Operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reserved-keywords">Reserved Keywords</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">函数</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id8">自定义全局函数注册</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id9">传入函数调用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id10">自定义类型方法调用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id11">属性调用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#map">map索引取值</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id12">数组索引取值</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-global-function-registration">Custom Global Function Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#passing-function-calls">Passing Function Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-type-method-calls">Custom Type Method Calls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#property-access">Property Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#map-index-access">Map Index Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#array-index-access">Array Index Access</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="hot_reload.html">热更新</a></li>
 <li class="toctree-l1"><a class="reference internal" href="middleware.html">中间件</a></li>
-<li class="toctree-l1"><a class="reference internal" href="code_generate.html">代码生成</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_generate.html">Code Generation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extension.html">扩展</a></li>
 <li class="toctree-l1"><a class="reference internal" href="eatmoreapple.html">吃包辣条</a></li>
 </ul>
@@ -85,7 +85,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">表达式</li>
+      <li class="breadcrumb-item active">Expressions</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/expr.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -95,137 +95,128 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="id1">
-<h1>表达式<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
-<p>从上面的动态sql里面我们可以看出 juice 支持在 <code class="docutils literal notranslate"><span class="pre">if</span></code> 和 <code class="docutils literal notranslate"><span class="pre">when</span></code> 标签中使用表达式，这些表达式的语法和 go 语言中的语法基本一致。</p>
-<p>你可以在表达式里面书写大部分的 go 语言表达式，但是有一些特殊的地方需要注意：</p>
-<p>1、 juice 只支持单行表达式，不支持多行表达式。</p>
-<p>2、当在表达式里面写一个字符串的时候，需要将test属性的的值用单引号包裹起来，例如：</p>
-<blockquote>
-<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;if</span><span class="w"> </span><span class="na">test=</span><span class="s">&#39;name == &quot;eatmoreapple&quot;&#39;</span><span class="nt">&gt;</span>
-
+  <section id="expressions">
+<h1>Expressions<a class="headerlink" href="#expressions" title="Permalink to this heading"></a></h1>
+<p>From the dynamic SQL examples above, we can see that Juice supports the use of expressions within the <code class="docutils literal notranslate"><span class="pre">if</span></code> and <code class="docutils literal notranslate"><span class="pre">when</span></code> tags. The syntax for these expressions aligns mostly with that of Go language. You can write most of the expressions that you would in Go, but there are a few special considerations:</p>
+<ol class="arabic simple">
+<li><p>Juice only supports single-line expressions, not multi-line expressions.</p></li>
+<li><p>When writing a string within an expression, you need to enclose the value of the test attribute in single quotes, for example:</p></li>
+</ol>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;if</span><span class="w"> </span><span class="na">test=</span><span class="s">&#39;name == &quot;eatmoreapple&quot;&#39;</span><span class="nt">&gt;</span>
 <span class="nt">&lt;/if&gt;</span>
 </pre></div>
 </div>
-</div></blockquote>
-<p>3、 尽量写简单一点的表达式。</p>
-<section id="id2">
-<h2>表达式<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
-<section id="id3">
-<h3>比较运算符<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
-<p>juice 支持以下比较运算符：</p>
+<ol class="arabic simple" start="3">
+<li><p>Try to write simpler expressions.</p></li>
+</ol>
+<section id="id1">
+<h2>Expressions<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<section id="comparison-operators">
+<h3>Comparison Operators<a class="headerlink" href="#comparison-operators" title="Permalink to this heading"></a></h3>
+<p>Juice supports the following comparison operators:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">==</span></code>: 判断两个值是否相等。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">!=</span></code>: 判断两个值是否不相等。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&gt;</span></code>: 判断左边的值是否大于右边的值。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>: 判断左边的值是否大于等于右边的值。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">==</span></code>: Checks if two values are equal.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">!=</span></code>: Checks if two values are not equal.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&gt;</span></code>: Checks if the left value is greater than the right.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>: Checks if the left value is greater than or equal to the right.</p></li>
 </ol>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code> 和 <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code> 不支持，因为它们会跟xml的语法冲突。那么怎么办呢？我们可以使用 <code class="docutils literal notranslate"><span class="pre">&amp;lt;</span></code> 和 <code class="docutils literal notranslate"><span class="pre">&amp;lt;=</span></code> 来代替 <code class="docutils literal notranslate"><span class="pre">&lt;</span></code> 和 <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>。</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code> are not supported as they clash with XML syntax. Instead, <code class="docutils literal notranslate"><span class="pre">&amp;lt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&amp;lt;=</span></code> can be used as substitutes.</p>
 </div>
 </section>
-<section id="id4">
-<h3>逻辑运算符<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
-<p>juice 支持以下逻辑运算符：</p>
+<section id="logical-operators">
+<h3>Logical Operators<a class="headerlink" href="#logical-operators" title="Permalink to this heading"></a></h3>
+<p>Juice supports the following logical operators:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">and</span></code>: 逻辑与。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">or</span></code>: 逻辑或。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">!</span></code>: 逻辑非。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">and</span></code>: Logical AND.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">or</span></code>: Logical OR.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">!</span></code>: Logical NOT.</p></li>
 </ol>
 </section>
-<section id="id5">
-<h3>算术运算符<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
-<p>juice 支持以下算术运算符：</p>
+<section id="arithmetic-operators">
+<h3>Arithmetic Operators<a class="headerlink" href="#arithmetic-operators" title="Permalink to this heading"></a></h3>
+<p>Juice supports the following arithmetic operators:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">+</span></code>: 加法运算。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-</span></code>: 减法运算。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">*</span></code>: 乘法运算。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/</span></code>: 除法运算。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">%</span></code>: 取余运算。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+</span></code>: Addition.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-</span></code>: Subtraction.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*</span></code>: Multiplication.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/</span></code>: Division.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">%</span></code>: Modulus.</p></li>
 </ol>
 </section>
-<section id="id6">
-<h3>保留关键字<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
-<p>保留关键字是指 juice 里面已经定义好的关键字，不能用作变量名。</p>
+<section id="reserved-keywords">
+<h3>Reserved Keywords<a class="headerlink" href="#reserved-keywords" title="Permalink to this heading"></a></h3>
+<p>Reserved keywords in Juice are predefined and cannot be used as variable names:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">true</span></code>: 布尔类型的真。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">false</span></code>: 布尔类型的假。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nil</span></code>: 空值。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">and</span></code>: 逻辑与。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">or</span></code>: 逻辑或。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">true</span></code>: Boolean true.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">false</span></code>: Boolean false.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nil</span></code>: Represents a null value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">and</span></code>: Logical AND.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">or</span></code>: Logical OR.</p></li>
 </ol>
 </section>
 </section>
-<section id="id7">
-<h2>函数<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h2>
-<p>为了丰富表达式的功能，juice 支持在表达式里面调用函数。</p>
-<p>juice 内置了一些函数，你可以在表达式里面使用。</p>
-<ol class="arabic">
-<li><p><code class="docutils literal notranslate"><span class="pre">length</span></code>: 返回字符串的长度，或者数组、切片、map的长度。</p>
-<blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="n">length</span><span class="p">[</span><span class="n">T</span> <span class="nb">slice</span><span class="o">|</span><span class="nb">map</span><span class="o">|</span><span class="n">string</span><span class="p">](</span><span class="n">T</span><span class="p">)</span> <span class="nb">int</span>
-</pre></div>
-</div>
-</div></blockquote>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">substr</span></code>: 返回字符串的子串，第一个参数是字符串，第二个参数是开始位置，第三个参数是结束位置。</p>
-<blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="n">substr</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="n">string</span>
-</pre></div>
-</div>
-</div></blockquote>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">join</span></code>: 将字符串数组或者字符串切片转换成字符串，第一个参数是数组或者切片，第二个参数是分隔符。</p>
-<blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="n">join</span><span class="p">[</span><span class="n">T</span> <span class="nb">slice</span><span class="p">](</span><span class="n">T</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="n">string</span>
-</pre></div>
-</div>
-</div></blockquote>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">contains</span></code>: 判断字符串、切片、map中是否包含制定元素</p>
-<blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="n">contains</span><span class="p">[</span><span class="n">T</span> <span class="nb">slice</span><span class="o">|</span><span class="nb">map</span><span class="o">|</span><span class="n">string</span><span class="p">](</span><span class="n">T</span><span class="p">,</span> <span class="n">interface</span><span class="p">{})</span> <span class="nb">bool</span>
-</pre></div>
-</div>
-</div></blockquote>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">slice</span></code>: 将数组或者切片进行切片，第一个参数是数组或者切片，第二个参数是开始位置，第三个参数是结束位置。</p>
-<blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="nb">slice</span><span class="p">[</span><span class="n">T</span> <span class="nb">slice</span><span class="p">](</span><span class="n">T</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="n">T</span>
-</pre></div>
-</div>
-</div></blockquote>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">title</span></code>: 将字符串的首字母大写。</p>
-<blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="n">title</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">string</span>
-</pre></div>
-</div>
-</div></blockquote>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">lower</span></code>: 将字符串转换成小写。</p>
-<blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="n">lower</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">string</span>
-</pre></div>
-</div>
-</div></blockquote>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">upper</span></code>: 将字符串转换成大写。</p>
-<blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">func</span> <span class="n">upper</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">string</span>
-</pre></div>
-</div>
-</div></blockquote>
-</li>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this heading"></a></h2>
+<p>To enrich the functionality of expressions, Juice supports the invocation of functions within expressions. Juice has built-in functions that you can use within your expressions:</p>
+<ol class="arabic simple">
+<li><p><strong>length</strong>: Returns the length of a string, array, slice, or map.</p></li>
 </ol>
+<div class="highlight-func notranslate"><div class="highlight"><pre><span></span><span class="nv">length</span><span class="p">[</span><span class="nv">T</span><span class="w"> </span><span class="nv">slice|map|string</span><span class="p">](</span><span class="nv">T</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>substr</strong>: Returns a substring, with the first parameter as the string, the second as the start position, and the third as the end position.</p></li>
+</ol>
+<div class="highlight-func notranslate"><div class="highlight"><pre><span></span><span class="nf">substr</span><span class="p">(</span><span class="nv">string</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="nv">string</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>join</strong>: Converts an array or slice of strings into a single string, with the first parameter being the array or slice and the second being the delimiter.</p></li>
+</ol>
+<div class="highlight-func notranslate"><div class="highlight"><pre><span></span><span class="nv">join</span><span class="p">[</span><span class="nv">T</span><span class="w"> </span><span class="kt">slice</span><span class="p">](</span><span class="nv">T</span><span class="p">,</span><span class="w"> </span><span class="nv">string</span><span class="p">)</span><span class="w"> </span><span class="nv">string</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>contains</strong>: Checks if a string, slice, or map contains a specified element.</p></li>
+</ol>
+<div class="highlight-func notranslate"><div class="highlight"><pre><span></span><span class="nv">contains</span><span class="p">[</span><span class="nv">T</span><span class="w"> </span><span class="nv">slice|map|string</span><span class="p">](</span><span class="nv">T</span><span class="p">,</span><span class="w"> </span><span class="nv">interface{}</span><span class="p">)</span><span class="w"> </span><span class="nv">bool</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p><strong>slice</strong>: Slices an array or a slice, with the first parameter as the array or slice, the second as the start position, and the third as the end position.</p></li>
+</ol>
+<div class="highlight-func notranslate"><div class="highlight"><pre><span></span><span class="kt">slice</span><span class="p">[</span><span class="nv">T</span><span class="w"> </span><span class="kt">slice</span><span class="p">](</span><span class="nv">T</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="nv">T</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p><strong>title</strong>: Capitalizes the first letter of a string.</p></li>
+</ol>
+<div class="highlight-func notranslate"><div class="highlight"><pre><span></span><span class="nf">title</span><span class="p">(</span><span class="nv">string</span><span class="p">)</span><span class="w"> </span><span class="nv">string</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li><p><strong>lower</strong>: Converts a string to lowercase.</p></li>
+</ol>
+<div class="highlight-func notranslate"><div class="highlight"><pre><span></span><span class="nf">lower</span><span class="p">(</span><span class="nv">string</span><span class="p">)</span><span class="w"> </span><span class="nv">string</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="8">
+<li><p><strong>upper</strong>: Converts a string to uppercase.</p></li>
+</ol>
+<div class="highlight-func notranslate"><div class="highlight"><pre><span></span><span class="nf">upper</span><span class="p">(</span><span class="nv">string</span><span class="p">)</span><span class="w"> </span><span class="nv">string</span>
+</pre></div>
+</div>
 </section>
-<section id="id8">
-<h2>自定义全局函数注册<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h2>
-<p>当我觉得内置的函数不够用的时候，我们注册自定义函数，自定义函数需要满足以下条件：</p>
-<p>1、 必须是一个函数（emm，这个很好理解）。</p>
-<p>2、必须有两个返回值，第一个返回值是任意类型，第二个必须为error类型。</p>
-<p>ok，当满足上述两个条件之后，我们就可以往juice里面注册自定义函数了。</p>
+<section id="custom-global-function-registration">
+<h2>Custom Global Function Registration<a class="headerlink" href="#custom-global-function-registration" title="Permalink to this heading"></a></h2>
+<p>When the built-in functions are insufficient, you can register custom functions, which must meet the following criteria:</p>
+<ol class="arabic simple">
+<li><p>It must be a function.</p></li>
+<li><p>It must have two return values, the first of any type and the second of error type.</p></li>
+</ol>
+<p>When these conditions are met, you can register the function in Juice:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">add</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">y</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
 <span class="p">}</span>
@@ -237,19 +228,16 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>在上面的代码中，我们定义了一个 <code class="docutils literal notranslate"><span class="pre">add</span></code> 函数，然后我们调用 <code class="docutils literal notranslate"><span class="pre">RegisterEvalFunc</span></code> 方法将这个函数注册到 juice 里面。</p>
-<p>在 juice 里面，我们可以这样使用这个函数：</p>
+<p>In Juice, the function can be used like this:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;if</span><span class="w"> </span><span class="na">test=</span><span class="s">&#39;add(1, 2) == 3&#39;</span><span class="nt">&gt;</span>
-
 <span class="nt">&lt;/if&gt;</span>
 </pre></div>
 </div>
 </section>
-<section id="id9">
-<h2>传入函数调用<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h2>
-<p>juice 支持在参数传递时，传入函数调用，例如：</p>
+<section id="passing-function-calls">
+<h2>Passing Function Calls<a class="headerlink" href="#passing-function-calls" title="Permalink to this heading"></a></h2>
+<p>Juice supports passing function calls as parameters, for example:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;if</span><span class="w"> </span><span class="na">test=</span><span class="s">&#39;MyFunc() == &quot;eatmoreapple&quot;&#39;</span><span class="nt">&gt;</span>
-
 <span class="nt">&lt;/if&gt;</span>
 </pre></div>
 </div>
@@ -263,10 +251,9 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>带有参数的函数</p></li>
+<li><p>With parameters function:</p></li>
 </ul>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;if</span><span class="w"> </span><span class="na">test=</span><span class="s">&#39;MyFunc(&quot;eatmoreapple&quot;) == &quot;eatmoreapple&quot;&#39;</span><span class="nt">&gt;</span>
-
 <span class="nt">&lt;/if&gt;</span>
 </pre></div>
 </div>
@@ -280,10 +267,9 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>传递函数的参数的参数（怎么有点拗口？）</p></li>
+<li><p>Passing function parameters:</p></li>
 </ul>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;if</span><span class="w"> </span><span class="na">test=</span><span class="s">&#39;MyFunc(eatmoreapple) == &quot;eatmoreapple&quot;&#39;</span><span class="nt">&gt;</span>
-
 <span class="nt">&lt;/if&gt;</span>
 </pre></div>
 </div>
@@ -298,10 +284,9 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>多个参数</p></li>
+<li><p>Multiple parameters:</p></li>
 </ul>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;if</span><span class="w"> </span><span class="na">test=</span><span class="s">&#39;MyFunc(eatmoreapple, 1, 2) == &quot;eatmoreapple&quot;&#39;</span><span class="nt">&gt;</span>
-
 <span class="nt">&lt;/if&gt;</span>
 </pre></div>
 </div>
@@ -316,11 +301,10 @@
 </pre></div>
 </div>
 </section>
-<section id="id10">
-<h2>自定义类型方法调用<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h2>
-<p>juice 支持在参数传递时，传入自定义类型的方法调用，例如：</p>
+<section id="custom-type-method-calls">
+<h2>Custom Type Method Calls<a class="headerlink" href="#custom-type-method-calls" title="Permalink to this heading"></a></h2>
+<p>Juice supports the invocation of custom type methods when passing parameters:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;if</span><span class="w"> </span><span class="na">test=</span><span class="s">&#39;a.MyFunc() == &quot;eatmoreapple&quot;&#39;</span><span class="nt">&gt;</span>
-
 <span class="nt">&lt;/if&gt;</span>
 </pre></div>
 </div>
@@ -339,14 +323,13 @@
 </div>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>传入函数调用时，函数的返回值必须是两个，第一个返回值是任意类型，第二个返回值必须是error类型。</p>
+<p>When passing function calls, the function must return two values, the first of any type and the second of error type.</p>
 </div>
 </section>
-<section id="id11">
-<h2>属性调用<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h2>
-<p>juice 支持在参数传递时，传入自定义类型的属性调用，例如：</p>
+<section id="property-access">
+<h2>Property Access<a class="headerlink" href="#property-access" title="Permalink to this heading"></a></h2>
+<p>Juice supports accessing properties of custom types when passing parameters:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;if</span><span class="w"> </span><span class="na">test=</span><span class="s">&#39;a.Name == &quot;eatmoreapple&quot;&#39;</span><span class="nt">&gt;</span>
-
 <span class="nt">&lt;/if&gt;</span>
 </pre></div>
 </div>
@@ -360,8 +343,8 @@
 </pre></div>
 </div>
 </section>
-<section id="map">
-<h2>map索引取值<a class="headerlink" href="#map" title="Permalink to this heading"></a></h2>
+<section id="map-index-access">
+<h2>Map Index Access<a class="headerlink" href="#map-index-access" title="Permalink to this heading"></a></h2>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">param</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">juice</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span>
 <span class="w">    </span><span class="s">&quot;a&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">juice</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span>
 <span class="w">        </span><span class="s">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eatmoreapple&quot;</span><span class="p">,</span>
@@ -370,20 +353,16 @@
 </pre></div>
 </div>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;if</span><span class="w"> </span><span class="na">test=</span><span class="s">&#39;a[&quot;Name&quot;] == &quot;eatmoreapple&quot;&#39;</span><span class="nt">&gt;</span>
-
 <span class="nt">&lt;/if&gt;</span>
 </pre></div>
 </div>
-<p>上面的xml可以写成下面的这种形式：</p>
+<p>This XML can also be written as follows:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;if</span><span class="w"> </span><span class="na">test=</span><span class="s">&#39;a.Name == &quot;eatmoreapple&quot;&#39;</span><span class="nt">&gt;</span>
-
 <span class="nt">&lt;/if&gt;</span>
 </pre></div>
 </div>
-<p>这两种写法有啥区别呢？</p>
-<p>索引取值，当对应的key不存在时，会返回map值的默认值。</p>
-<p>但是 <code class="docutils literal notranslate"><span class="pre">a.Name</span></code> 这种形式，当 <code class="docutils literal notranslate"><span class="pre">Name</span></code> 不存在时，会抛出异常。</p>
-<p>以 <code class="docutils literal notranslate"><span class="pre">a.Name</span></code> 这种形式写，可以支持方法调用，例如：</p>
+<p>What is the difference between these two methods?</p>
+<p>Index access returns the default value of the map when the corresponding key does not exist, while the <cite>a.Name</cite> format will throw an exception if <cite>Name</cite> does not exist. Using the <cite>a.Name</cite> format supports method calls, for example:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
 
 <span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="o">*</span><span class="nx">A</span><span class="p">)</span><span class="w"> </span><span class="nx">MyFunc</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -396,19 +375,15 @@
 </pre></div>
 </div>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;if</span><span class="w"> </span><span class="na">test=</span><span class="s">&#39;a.MyFunc() == &quot;eatmoreapple&quot;&#39;</span><span class="nt">&gt;</span>
-
 <span class="nt">&lt;/if&gt;</span>
-
 <span class="nt">&lt;if</span><span class="w"> </span><span class="na">test=</span><span class="s">&quot;a.hello == &#39;world&#39;&quot;</span><span class="nt">&gt;</span>
-
 <span class="nt">&lt;/if&gt;</span>
 </pre></div>
 </div>
 </section>
-<section id="id12">
-<h2>数组索引取值<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h2>
+<section id="array-index-access">
+<h2>Array Index Access<a class="headerlink" href="#array-index-access" title="Permalink to this heading"></a></h2>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;if</span><span class="w"> </span><span class="na">test=</span><span class="s">&#39;a[0] == &quot;eatmoreapple&quot;&#39;</span><span class="nt">&gt;</span>
-
 <span class="nt">&lt;/if&gt;</span>
 </pre></div>
 </div>
@@ -424,7 +399,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="dynamic_sql.html" class="btn btn-neutral float-left" title="动态sql" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dynamic_sql.html" class="btn btn-neutral float-left" title="Dynamic SQL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="hot_reload.html" class="btn btn-neutral float-right" title="热更新" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
