@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SQL mappers &mdash; juice  documentation</title>
+  <title>SQL Mappers &mdash; juice  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="结果集映射" href="result_mapping.html" />
-    <link rel="prev" title="配置详情" href="configuration.html" /> 
+    <link rel="prev" title="Configuration Details" href="configuration.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,16 +41,16 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Introduction to Juice</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">配置详情</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">SQL mappers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#mappers">mappers标签</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mapper">mapper标签</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#select-insert-update-delete">select，insert，update，delete标签</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">接受参数</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">定义参数实例</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">参数传递</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#map-struct">map-struct参数</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id4">非map-struct的参数传递</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration Details</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SQL Mappers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#mappers-tag">mappers Tag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mapper-tag">mapper Tag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#select-insert-update-delete-tags">select, insert, update, delete Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-parameters">Using Parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parameter-example">Parameter Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameter-passing">Parameter Passing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#map-struct-parameters">Map-Struct Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#non-map-struct-parameter-passing">Non-Map-Struct Parameter Passing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#h">H</a></li>
 </ul>
 </li>
@@ -60,13 +60,13 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="result_mapping.html">结果集映射</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tx.html">事务</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cache.html">缓存</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dynamic_sql.html">动态sql</a></li>
-<li class="toctree-l1"><a class="reference internal" href="expr.html">表达式</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hot_reload.html">热更新</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache.html">Cache Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamic_sql.html">Dynamic SQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expr.html">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hot_reload.html">Hot Update</a></li>
 <li class="toctree-l1"><a class="reference internal" href="middleware.html">中间件</a></li>
-<li class="toctree-l1"><a class="reference internal" href="code_generate.html">代码生成</a></li>
-<li class="toctree-l1"><a class="reference internal" href="extension.html">扩展</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_generate.html">Code Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extension.html">Extensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="eatmoreapple.html">吃包辣条</a></li>
 </ul>
 
@@ -84,7 +84,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">SQL mappers</li>
+      <li class="breadcrumb-item active">SQL Mappers</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/mappers.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -95,123 +95,113 @@
            <div itemprop="articleBody">
              
   <section id="sql-mappers">
-<h1>SQL mappers<a class="headerlink" href="#sql-mappers" title="Permalink to this heading"></a></h1>
-<p>当我们将数据源信息配置好之后，我们就可以使用SQL Mapper来访问数据库了。 首先，我们得需要告诉juice去哪里找到我们的sql语句。</p>
-<section id="mappers">
-<h2>mappers标签<a class="headerlink" href="#mappers" title="Permalink to this heading"></a></h2>
-<p>mappers 是mapper标签的父标签，它是一个集合标签，用来存放mapper标签。</p>
+<h1>SQL Mappers<a class="headerlink" href="#sql-mappers" title="Permalink to this heading"></a></h1>
+<p>After configuring the data source information, we can use SQL Mappers to access the database. First, we need to tell juice where to find our SQL statements.</p>
+<section id="mappers-tag">
+<h2>mappers Tag<a class="headerlink" href="#mappers-tag" title="Permalink to this heading"></a></h2>
+<p>The <cite>mappers</cite> tag is the parent tag for the <cite>mapper</cite> tags; it is a collection tag used to store multiple <cite>mapper</cite> tags.</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
-<span class="w"> </span><span class="nt">&lt;configuration&gt;</span>
-<span class="w">     </span><span class="nt">&lt;environments</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;prod&quot;</span><span class="nt">&gt;</span>
-<span class="w">         </span><span class="nt">&lt;environment</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;prod&quot;</span><span class="nt">&gt;</span>
-<span class="w">             </span><span class="nt">&lt;dataSource&gt;</span>root:qwe123@tcp(localhost:3306)/database<span class="nt">&lt;/dataSource&gt;</span>
-<span class="w">             </span><span class="nt">&lt;driver&gt;</span>mysql<span class="nt">&lt;/driver&gt;</span>
-<span class="w">         </span><span class="nt">&lt;/environment&gt;</span>
-<span class="w">     </span><span class="nt">&lt;/environments&gt;</span>
-
-<span class="w">     </span><span class="nt">&lt;mappers&gt;</span>
-
-<span class="w">     </span><span class="nt">&lt;/mappers&gt;</span>
-<span class="w"> </span><span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;configuration&gt;</span>
+<span class="w">    </span><span class="nt">&lt;environments</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;prod&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;environment</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;prod&quot;</span><span class="nt">&gt;</span>
+<span class="w">            </span><span class="nt">&lt;dataSource&gt;</span>root:qwe123@tcp(localhost:3306)/database<span class="nt">&lt;/dataSource&gt;</span>
+<span class="w">            </span><span class="nt">&lt;driver&gt;</span>mysql<span class="nt">&lt;/driver&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/environment&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/environments&gt;</span>
+<span class="w">    </span><span class="nt">&lt;mappers&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/mappers&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
 </pre></div>
 </div>
 </section>
-<section id="mapper">
-<h2>mapper标签<a class="headerlink" href="#mapper" title="Permalink to this heading"></a></h2>
-<p>mapper标签是用来存储sql语句的集合标签。</p>
-<p>简单的例子：</p>
+<section id="mapper-tag">
+<h2>mapper Tag<a class="headerlink" href="#mapper-tag" title="Permalink to this heading"></a></h2>
+<p>The <cite>mapper</cite> tag is a collection tag used to store SQL statements. Here’s a simple example:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;mappers&gt;</span>
-<span class="w">     </span><span class="nt">&lt;mapper</span><span class="w"> </span><span class="na">namespace=</span><span class="s">&quot;main&quot;</span><span class="nt">&gt;</span>
-<span class="w">         </span><span class="nt">&lt;select</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;HelloWorld&quot;</span><span class="nt">&gt;</span>
-<span class="w">             </span>select<span class="w"> </span>&quot;hello<span class="w"> </span>world&quot;<span class="w"> </span>as<span class="w"> </span>message
-<span class="w">         </span><span class="nt">&lt;/select&gt;</span>
-<span class="w">     </span><span class="nt">&lt;/mapper&gt;</span>
-
-<span class="w">     </span><span class="nt">&lt;mapper</span><span class="w"> </span><span class="na">resource=</span><span class="s">&quot;path_to_another_mapper.xml&quot;</span><span class="nt">/&gt;</span>
-<span class="w">     </span><span class="nt">&lt;mapper</span><span class="w"> </span><span class="na">url=</span><span class="s">&quot;http(s)://domain:port/path&quot;</span><span class="nt">/&gt;</span>
-<span class="w">     </span><span class="nt">&lt;mapper</span><span class="w"> </span><span class="na">url=</span><span class="s">&quot;file://path to your mapper&quot;</span><span class="nt">/&gt;</span>
-
-<span class="w"> </span><span class="nt">&lt;/mappers&gt;</span>
+<span class="w">    </span><span class="nt">&lt;mapper</span><span class="w"> </span><span class="na">namespace=</span><span class="s">&quot;main&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;select</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;HelloWorld&quot;</span><span class="nt">&gt;</span>
+<span class="w">            </span>select<span class="w"> </span>&quot;hello<span class="w"> </span>world&quot;<span class="w"> </span>as<span class="w"> </span>message
+<span class="w">        </span><span class="nt">&lt;/select&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/mapper&gt;</span>
+<span class="w">    </span><span class="nt">&lt;mapper</span><span class="w"> </span><span class="na">resource=</span><span class="s">&quot;path_to_another_mapper.xml&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;mapper</span><span class="w"> </span><span class="na">url=</span><span class="s">&quot;http(s)://domain:port/path&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;mapper</span><span class="w"> </span><span class="na">url=</span><span class="s">&quot;file://path to your mapper&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/mappers&gt;</span>
 </pre></div>
 </div>
 <ul>
 <li><dl class="py class">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">namespace:</span> <span class="pre">用来指定mapper的命名空间，这个命名空间是用来区分不同mapper的，它的值必须是一个唯一的。</span></span></dt>
+<span class="sig-name descname"><span class="pre">namespace:</span> <span class="pre">Used</span> <span class="pre">to</span> <span class="pre">specify</span> <span class="pre">the</span> <span class="pre">namespace</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">mapper,</span> <span class="pre">which</span> <span class="pre">helps</span> <span class="pre">to</span> <span class="pre">differentiate</span> <span class="pre">between</span> <span class="pre">different</span> <span class="pre">mappers.</span> <span class="pre">The</span> <span class="pre">value</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">unique.</span></span></dt>
 <dd></dd></dl>
 
 </li>
 <li><dl class="py class">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">resource:</span> <span class="pre">用来引用另外一个mapper文件，注意：引用的mapper文件如果没有再次引用别的文件，那么它的namespace属性是必须的。</span></span></dt>
+<span class="sig-name descname"><span class="pre">resource:</span> <span class="pre">Used</span> <span class="pre">to</span> <span class="pre">reference</span> <span class="pre">another</span> <span class="pre">mapper</span> <span class="pre">file.</span> <span class="pre">Note:</span> <span class="pre">the</span> <span class="pre">referenced</span> <span class="pre">mapper</span> <span class="pre">file</span> <span class="pre">must</span> <span class="pre">have</span> <span class="pre">a</span> <span class="pre">namespace</span> <span class="pre">attribute</span> <span class="pre">if</span> <span class="pre">it</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">refer</span> <span class="pre">to</span> <span class="pre">another</span> <span class="pre">file.</span></span></dt>
 <dd></dd></dl>
 
 </li>
 <li><dl class="py class">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">url:</span> <span class="pre">通过url来引用mapper文件。目前支持http和file协议。如果引用的mapper文件没有再次引用别的文件，那么它的namespace属性是必须的。</span></span></dt>
+<span class="sig-name descname"><span class="pre">url:</span> <span class="pre">Used</span> <span class="pre">to</span> <span class="pre">reference</span> <span class="pre">a</span> <span class="pre">mapper</span> <span class="pre">file</span> <span class="pre">through</span> <span class="pre">a</span> <span class="pre">URL.</span> <span class="pre">Currently</span> <span class="pre">supports</span> <span class="pre">http</span> <span class="pre">and</span> <span class="pre">file</span> <span class="pre">protocols.</span> <span class="pre">If</span> <span class="pre">the</span> <span class="pre">referenced</span> <span class="pre">mapper</span> <span class="pre">file</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">refer</span> <span class="pre">to</span> <span class="pre">another</span> <span class="pre">file,</span> <span class="pre">then</span> <span class="pre">its</span> <span class="pre">namespace</span> <span class="pre">attribute</span> <span class="pre">is</span> <span class="pre">mandatory.</span></span></dt>
 <dd></dd></dl>
 
 </li>
 </ul>
-<p>通过引用mapper文件，我们可以将sql语句分散到不同的文件中，这样可以使得我们的结构更加清晰。</p>
+<p>Using referenced mapper files allows us to distribute SQL statements across different files, making our structure clearer.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>namespace、resource、url三个属性是互斥的，一个mapper标签只能使用其中的一个。</p>
+<p>The <cite>namespace</cite>, <cite>resource</cite>, and <cite>url</cite> attributes are mutually exclusive; only one can be used within a single mapper tag.</p>
 </div>
 </section>
-<section id="select-insert-update-delete">
-<h2>select，insert，update，delete标签<a class="headerlink" href="#select-insert-update-delete" title="Permalink to this heading"></a></h2>
-<p>select标签用来存储select语句。 select标签必须在mapper标签中才能使用。</p>
+<section id="select-insert-update-delete-tags">
+<h2>select, insert, update, delete Tags<a class="headerlink" href="#select-insert-update-delete-tags" title="Permalink to this heading"></a></h2>
+<p>The <cite>select</cite> tag is used to store select statements and must be used within a mapper tag.</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;mapper</span><span class="w"> </span><span class="na">namespace=</span><span class="s">&quot;main&quot;</span><span class="nt">&gt;</span>
-<span class="w">     </span><span class="nt">&lt;select</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;HelloWorld&quot;</span><span class="nt">&gt;</span>
-<span class="w">         </span>select<span class="w"> </span>*<span class="w"> </span>from<span class="w"> </span>user
-<span class="w">     </span><span class="nt">&lt;/select&gt;</span>
-
-<span class="w">     </span><span class="nt">&lt;insert</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;insertUser&quot;</span><span class="nt">&gt;</span>
-<span class="w">         </span>insert<span class="w"> </span>into<span class="w"> </span>user<span class="w"> </span>(name,<span class="w"> </span>age)<span class="w"> </span>values<span class="w"> </span>(&quot;eatmoreapple&quot;,<span class="w"> </span>18))
-<span class="w">     </span><span class="nt">&lt;/insert&gt;</span>
-
-<span class="w">     </span><span class="nt">&lt;update</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;updateUser&quot;</span><span class="nt">&gt;</span>
-<span class="w">         </span>update<span class="w"> </span>user<span class="w"> </span>set<span class="w"> </span>age<span class="w"> </span>=<span class="w"> </span>19<span class="w"> </span>where<span class="w"> </span>name<span class="w"> </span>=<span class="w"> </span>&quot;eatmoreapple&quot;
-<span class="w">     </span><span class="nt">&lt;/update&gt;</span>
-
-<span class="w">     </span><span class="nt">&lt;delete</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;deleteUser&quot;</span><span class="nt">&gt;</span>
-<span class="w">         </span>delete<span class="w"> </span>from<span class="w"> </span>user<span class="w"> </span>where<span class="w"> </span>name<span class="w"> </span>=<span class="w"> </span>&quot;eatmoreapple&quot;
-<span class="w">     </span><span class="nt">&lt;/delete&gt;</span>
-<span class="w"> </span><span class="nt">&lt;/mapper&gt;</span>
+<span class="w">    </span><span class="nt">&lt;select</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;HelloWorld&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span>select<span class="w"> </span>*<span class="w"> </span>from<span class="w"> </span>user
+<span class="w">    </span><span class="nt">&lt;/select&gt;</span>
+<span class="w">    </span><span class="nt">&lt;insert</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;insertUser&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span>insert<span class="w"> </span>into<span class="w"> </span>user<span class="w"> </span>(name,<span class="w"> </span>age)<span class="w"> </span>values<span class="w"> </span>(&quot;eatmoreapple&quot;,<span class="w"> </span>18))
+<span class="w">    </span><span class="nt">&lt;/insert&gt;</span>
+<span class="w">    </span><span class="nt">&lt;update</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;updateUser&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span>update<span class="w"> </span>user<span class="w"> </span>set<span class="w"> </span>age<span class="w"> </span>=<span class="w"> </span>19<span class="w"> </span>where<span class="w"> </span>name<span class="w"> </span>=<span class="w"> </span>&quot;eatmoreapple&quot;
+<span class="w">    </span><span class="nt">&lt;/update&gt;</span>
+<span class="w">    </span><span class="nt">&lt;delete</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;deleteUser&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span>delete<span class="w"> </span>from<span class="w"> </span>user<span class="w"> </span>where<span class="w"> </span>name<span class="w"> </span>=<span class="w"> </span>&quot;eatmoreapple&quot;
+<span class="w">    </span><span class="nt">&lt;/delete&gt;</span>
+<span class="nt">&lt;/mapper&gt;</span>
 </pre></div>
 </div>
-<p>上述的 <cite>select、insert、update、delete</cite> 标签都是sql语句的集合标签，它们都有一个id属性，这个属性是用来标识sql语句的，它的值在同一个mapper中必须是唯一的。</p>
-<p><em>问：可不可以在 select 标签里面写 delete 语句呢？</em></p>
-<p><em>答：可以，但不推荐，每个标签都要有自己的语义。</em></p>
+<p>The <cite>select</cite>, <cite>insert</cite>, <cite>update</cite>, and <cite>delete</cite> tags are collection tags for SQL statements. Each of them must have an <cite>id</cite> attribute, which is used to identify the SQL statement and must be unique within the same mapper.</p>
+<p><em>Question: Can you write a delete statement inside the select tag?</em></p>
+<p><em>Answer: You can, but it is not recommended as each tag should have its own semantic meaning.</em></p>
 </section>
-<section id="id1">
-<h2>接受参数<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
-<p>我们可以在我们的sql语句中使用参数，这些参数可以通过外部传递进来，我们只需要通过特定的语法来引用这些参数即可。</p>
-<section id="id2">
-<h3>定义参数实例<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<section id="using-parameters">
+<h2>Using Parameters<a class="headerlink" href="#using-parameters" title="Permalink to this heading"></a></h2>
+<p>We can use parameters in our SQL statements, which can be passed in from external sources. We just need to use specific syntax to reference these parameters.</p>
+<section id="parameter-example">
+<h3>Parameter Example<a class="headerlink" href="#parameter-example" title="Permalink to this heading"></a></h3>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;mapper</span><span class="w"> </span><span class="na">namespace=</span><span class="s">&quot;main&quot;</span><span class="nt">&gt;</span>
-<span class="w">     </span><span class="nt">&lt;select</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;CountUserByName&quot;</span><span class="nt">&gt;</span>
-<span class="w">         </span>select<span class="w"> </span>count(*)<span class="w"> </span>from<span class="w"> </span>user<span class="w"> </span>where<span class="w"> </span>name<span class="w"> </span>=<span class="w"> </span>#{name}
-<span class="w">     </span><span class="nt">&lt;/select&gt;</span>
-<span class="w"> </span><span class="nt">&lt;/mapper&gt;</span>
+<span class="w">    </span><span class="nt">&lt;select</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;CountUserByName&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span>select<span class="w"> </span>count(*)<span class="w"> </span>from<span class="w"> </span>user<span class="w"> </span>where<span class="w"> </span>name<span class="w"> </span>=<span class="w"> </span>#{name}
+<span class="w">    </span><span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;/mapper&gt;</span>
 </pre></div>
 </div>
-<p>上述的sql语句中，我们使用了 <code class="docutils literal notranslate"><span class="pre">#{name}</span></code> 来引用参数，这个参数的值将会在执行sql语句的时候传递进来。</p>
-<p><code class="docutils literal notranslate"><span class="pre">#{}</span></code> 的语法会在运行时被替换成占位符，这样可以防止sql注入。但是，如果我们需要使用字符串拼接的方式来构造sql语句，那么我们就需要使用 <code class="docutils literal notranslate"><span class="pre">${}</span></code> 来引用参数了。</p>
+<p>In the above SQL statement, we use <code class="docutils literal notranslate"><span class="pre">#{name}</span></code> to reference a parameter. This parameter’s value will be passed in when executing the SQL statement. The <code class="docutils literal notranslate"><span class="pre">#{}</span></code> syntax is replaced by placeholders at runtime to prevent SQL injection. However, if we need to construct the SQL statement by concatenating strings, we’d use <code class="docutils literal notranslate"><span class="pre">${}</span></code> to reference the parameters.</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;mapper</span><span class="w"> </span><span class="na">namespace=</span><span class="s">&quot;main&quot;</span><span class="nt">&gt;</span>
-<span class="w">     </span><span class="nt">&lt;select</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;CountUserByName&quot;</span><span class="nt">&gt;</span>
-<span class="w">         </span>select<span class="w"> </span>count(*)<span class="w"> </span>from<span class="w"> </span>user<span class="w"> </span>where<span class="w"> </span>name<span class="w"> </span>=<span class="w"> </span>${name}
-<span class="w">     </span><span class="nt">&lt;/select&gt;</span>
-<span class="w"> </span><span class="nt">&lt;/mapper&gt;</span>
+<span class="w">    </span><span class="nt">&lt;select</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;CountUserByName&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span>select<span class="w"> </span>count(*)<span class="w"> </span>from<span class="w"> </span>user<span class="w"> </span>where<span class="w"> </span>name<span class="w"> </span>=<span class="w"> </span>${name}
+<span class="w">    </span><span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;/mapper&gt;</span>
 </pre></div>
 </div>
-<p>上述的sql语句中，我们使用了 <code class="docutils literal notranslate"><span class="pre">${name}</span></code> 来引用参数，这个参数的值将会在执行sql语句的时候传递进来。</p>
-<p>但是，<code class="docutils literal notranslate"><span class="pre">${}</span></code> 的语法不会被替换成占位符，这样就会导致sql注入的问题。所以，我们在使用 <code class="docutils literal notranslate"><span class="pre">${}</span></code> 的时候，必须要保证参数的值是安全的。</p>
+<p>In this SQL statement, we use <code class="docutils literal notranslate"><span class="pre">${name}</span></code> to reference a parameter. The value of this parameter will be passed during the execution of the SQL statement. However, the <code class="docutils literal notranslate"><span class="pre">${}</span></code> syntax is not replaced by a placeholder, which can lead to SQL injection issues. Therefore, when using <code class="docutils literal notranslate"><span class="pre">${}</span></code>, ensure the parameter value is secure.</p>
 </section>
-<section id="id3">
-<h3>参数传递<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<section id="parameter-passing">
+<h3>Parameter Passing<a class="headerlink" href="#parameter-passing" title="Permalink to this heading"></a></h3>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span>
@@ -242,33 +232,29 @@
 <span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
 <span class="w">        </span><span class="k">return</span>
 <span class="w">    </span><span class="p">}</span>
+
 <span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">count</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>如上所示，我们在创建完 <cite>engine</cite> 之后, 使用 <cite>NewGenericManager</cite> 来创建一个 <cite>GenericManager</cite> , 这个方法接受一个泛型参数, 这个参数是用来指定返回值的类型的, 这里我们指定的是 <code class="docutils literal notranslate"><span class="pre">int64</span></code> 。然后，我们使用 <cite>Object</cite> 方法来指定我们要执行的sql语句，这个方法接受一个参数，这里我们传入了 <cite>CountUserByName</cite> 这个函数，因为 <cite>CountUserByName</cite> 这个函数在main包下，并且它不属于任何自定义结构，所以它的全名就是 <cite>main.CountUserByName</cite> 。</p>
-<p>对应到xml配置文件中，它就会去找main这个命名空间下的 <cite>CountUserByName</cite> 这个id。当然，我们也可以在直接调用 <cite>Object</cite> 方法的时候，传入一个字符串，这个字符串就是我们要执行的sql语句的id，如 <cite>main.CountUserByName</cite> 。</p>
-<p>最后，我们使用 <cite>Query</cite> 方法来执行sql语句，这个方法接受一个参数，这个参数就是我们要传递给sql语句的参数。</p>
-<section id="map-struct">
-<h4>map-struct参数<a class="headerlink" href="#map-struct" title="Permalink to this heading"></a></h4>
-<p>如上所示，我们传递了一个 <cite>map</cite>，这个 <cite>map</cite> 的key就是我们在sql语句中使用的参数名，这个map的value就是我们要传递给sql语句的参数值。当然我们也可以传递一个struct，这个struct的字段名就是我们在sql语句中使用的参数名，这个struct的字段值就是我们要传递给sql语句的参数值。</p>
-<p>如果我们想自定义struct的字段名和sql语句中的参数名不一致，那么我们可以使用juice的tag来指定，如下所示：</p>
+<p>As shown above, after creating the <cite>engine</cite>, we use <cite>NewGenericManager</cite> to create a <cite>GenericManager</cite>. This method accepts a generic parameter specifying the return type, which in this case is <cite>int64</cite>. Then, we use the <cite>Object</cite> method to specify the SQL statement we want to execute. This method accepts a parameter, in this instance, we pass the <cite>CountUserByName</cite>, which is a function under the main package and does not belong to any custom structure, so its full name is <cite>main.CountUserByName</cite>. In the XML configuration file, it searches for the <cite>CountUserByName</cite> id under the main namespace. We can also directly pass the SQL statement id we want to execute, like <cite>main.CountUserByName</cite>, when calling the <cite>Object</cite> method. Lastly, we use the <cite>Query</cite> method to execute the SQL statement, which accepts a parameter for the arguments to pass to the SQL statement.</p>
+<section id="map-struct-parameters">
+<h4>Map-Struct Parameters<a class="headerlink" href="#map-struct-parameters" title="Permalink to this heading"></a></h4>
+<p>As shown, we passed a <cite>map</cite> where the map’s key is the parameter name used in the SQL statement, and its value is the argument to pass to the SQL statement. Alternatively, we can pass a struct, and the struct’s field names would be the parameter names used in the SQL statement, with the field values being the argument values. If we want to customize so the struct field names do not match the SQL parameter names directly, we can use juice’s tag to specify:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">User</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">Name</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`param:&quot;name&quot;`</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>指定结构体字段的tag为param，那么这个字段就会被当作sql语句中的参数名，而不是字段名。</p>
+<p>By specifying the struct field’s tag as <cite>param</cite>, that field will be treated as the SQL parameter name, not the field name.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>当你的参数是一个map的时候，这个map的key必须是string类型的。</p>
+<p>When passing a map as an argument, the map’s key must be a string type.</p>
 </div>
 </section>
-<section id="id4">
-<h4>非map-struct的参数传递<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h4>
-<p>既然map和struct都可以转换成key-value结构，那么如果我们传递一个非struct的参数或者非map的参数，那么这个参数传递到xml中的key是什么呢？</p>
-<p>这个时候，juice就会将这个参数包装成一个 <cite>map</cite>，这个 <cite>map</cite> 的key就是 <code class="docutils literal notranslate"><span class="pre">param</span></code> ，这个 <cite>map</cite> 的value就是我们传递的参数。</p>
-<p>如下所示：</p>
+<section id="non-map-struct-parameter-passing">
+<h4>Non-Map-Struct Parameter Passing<a class="headerlink" href="#non-map-struct-parameter-passing" title="Permalink to this heading"></a></h4>
+<p>Since both maps and structs can be converted into a key-value structure, what is the key used in the XML if we pass a non-struct or non-map parameter? Juice will then wrap this parameter in a <cite>map</cite>, where the <cite>map</cite>’s key is <code class="docutils literal notranslate"><span class="pre">param</span></code>, and its value is our passed parameter.</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">count</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">juice</span><span class="p">.</span><span class="nx">NewGenericManager</span><span class="p">[</span><span class="kt">int64</span><span class="p">](</span><span class="nx">engine</span><span class="p">).</span><span class="nx">Object</span><span class="p">(</span><span class="nx">CountUserByName</span><span class="p">).</span><span class="nx">Query</span><span class="p">(</span><span class="s">&quot;eatmoreapple&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -279,7 +265,7 @@
 <span class="nt">&lt;/mapper&gt;</span>
 </pre></div>
 </div>
-<p>包装的 <cite>map</cite> 的key也是可以自定义的，我们可以在对应的action标签上，使用 <code class="docutils literal notranslate"><span class="pre">paramName</span></code> 属性来指定，如下所示：</p>
+<p>The wrapped <cite>map</cite>’s key can also be customized. We can specify the <cite>paramName</cite> attribute in the corresponding action tag, as shown:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;mapper</span><span class="w"> </span><span class="na">namespace=</span><span class="s">&quot;main&quot;</span><span class="nt">&gt;</span>
 <span class="w">    </span><span class="nt">&lt;select</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;CountUserByName&quot;</span><span class="w"> </span><span class="na">paramName=</span><span class="s">&quot;name&quot;</span><span class="nt">&gt;</span>
 <span class="w">        </span>select<span class="w"> </span>count(*)<span class="w"> </span>from<span class="w"> </span>user<span class="w"> </span>where<span class="w"> </span>name<span class="w"> </span>=<span class="w"> </span>#{name}
@@ -287,14 +273,14 @@
 <span class="nt">&lt;/mapper&gt;</span>
 </pre></div>
 </div>
-<p>或者通过环境变量 <code class="docutils literal notranslate"><span class="pre">JUICE_PARAM_NAME</span></code> 来设置。</p>
+<p>or via the environment variable <code class="docutils literal notranslate"><span class="pre">JUICE_PARAM_NAME</span></code>.</p>
 </section>
 <section id="h">
 <h4>H<a class="headerlink" href="#h" title="Permalink to this heading"></a></h4>
-<p><code class="docutils literal notranslate"><span class="pre">juice.H</span></code> 是一个 <code class="docutils literal notranslate"><span class="pre">map[string]interface{}</span></code> 的别名。用来方便开发者传递参数。</p>
+<p><code class="docutils literal notranslate"><span class="pre">juice.H</span></code> is an alias for <code class="docutils literal notranslate"><span class="pre">map[string]interface{}</span></code>. It’s designed to help developers pass parameters conveniently.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>请确保你传递的参数是可被序列化的，否则会导致部分功能异常，如缓存。</p>
+<p>Please ensure the arguments you pass are serializable, or it could cause some features to malfunction, such as caching.</p>
 </div>
 </section>
 </section>
@@ -305,7 +291,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="configuration.html" class="btn btn-neutral float-left" title="配置详情" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configuration.html" class="btn btn-neutral float-left" title="Configuration Details" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="result_mapping.html" class="btn btn-neutral float-right" title="结果集映射" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

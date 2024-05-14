@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>扩展 &mdash; juice  documentation</title>
+  <title>Extensions &mdash; juice  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="吃包辣条" href="eatmoreapple.html" />
-    <link rel="prev" title="代码生成" href="code_generate.html" /> 
+    <link rel="prev" title="Code Generation" href="code_generate.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,21 +41,21 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Introduction to Juice</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">配置详情</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mappers.html">SQL mappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mappers.html">SQL Mappers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="result_mapping.html">结果集映射</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tx.html">事务</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cache.html">缓存</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dynamic_sql.html">动态sql</a></li>
-<li class="toctree-l1"><a class="reference internal" href="expr.html">表达式</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hot_reload.html">热更新</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache.html">Cache Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamic_sql.html">Dynamic SQL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expr.html">Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hot_reload.html">Hot Update</a></li>
 <li class="toctree-l1"><a class="reference internal" href="middleware.html">中间件</a></li>
-<li class="toctree-l1"><a class="reference internal" href="code_generate.html">代码生成</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">扩展</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id2">配置文件打包到可执行文件</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">读写分离</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">链路追踪</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#xml">XML文档约束</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_generate.html">Code Generation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Extensions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#embed-configuration-files-into-executable">Embed Configuration Files into Executable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-write-separation">Read-Write Separation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tracing-middleware">Tracing Middleware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#xml-document-constraint">XML Document Constraint</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="eatmoreapple.html">吃包辣条</a></li>
@@ -75,7 +75,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">扩展</li>
+      <li class="breadcrumb-item active">Extensions</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/extension.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -85,17 +85,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="id1">
-<h1>扩展<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
-<section id="id2">
-<h2>配置文件打包到可执行文件<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
+  <section id="extensions">
+<h1>Extensions<a class="headerlink" href="#extensions" title="Permalink to this heading"></a></h1>
+<section id="embed-configuration-files-into-executable">
+<h2>Embed Configuration Files into Executable<a class="headerlink" href="#embed-configuration-files-into-executable" title="Permalink to this heading"></a></h2>
+<p>In the beginning, we used the following code to load configuration files:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">cfg</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">juice</span><span class="p">.</span><span class="nx">NewXMLConfiguration</span><span class="p">(</span><span class="s">&quot;config.xml&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>这是我们最开始用来加载配置文件的方式。</p>
-<p>这种方式有一个问题，当我们的go程序编制之后，需要依赖这个配置文件来运行，它们不是一个整体。</p>
-<p>在go1.16标准库新增了embed这个库，它允许开发者将静态文件打包到go的可执行文件里面去。</p>
-<p>juice也提供了这样的支持。</p>
+<p>This method has a problem; after compiling the Go program, it depends on this configuration file to run, and they are not a single cohesive unit.</p>
+<p>With the addition of the <cite>embed</cite> package in the Go 1.16 standard library, developers can now package static files directly into the executable. Juice also supports this capability:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span>
@@ -116,21 +115,20 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>注意：当你的mappers里面引用了别的mapper文件的时候，你的所有的被引用的mapper文件也需要被打包进来。</p>
-<p>如：</p>
+<p>Note: If your mappers refer to other mapper files, all referred mapper files also need to be embedded:</p>
+<p>Example:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;mappers&gt;</span>
 <span class="w">    </span><span class="nt">&lt;mapper</span><span class="w"> </span><span class="na">resource=</span><span class="s">&quot;mappers.xml&quot;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/mappers&gt;</span>
 </pre></div>
 </div>
-<p>这时候我们最好的做法是将这些配置文件放在一个文件夹下面。</p>
+<p>The best practice is to place configuration files under one folder:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>├──<span class="w"> </span>config
-<span class="w">  </span>├──<span class="w"> </span>config.xml
-<span class="w">  </span>└──<span class="w"> </span>mappers.xml
+<span class="w">    </span>├──<span class="w"> </span>config.xml
+<span class="w">    </span>└──<span class="w"> </span>mappers.xml
 </pre></div>
 </div>
-<p>如上所示，我们的文件布局是这样的。</p>
-<p>这时候我们只需要把代码改一下</p>
+<p>As shown above, the file structure should be organized accordingly. You only need to adjust your code slightly:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span>
@@ -151,13 +149,11 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>这样就解决上面的问题了。</p>
+<p>This modification addresses the issue mentioned above.</p>
 </section>
-<section id="id3">
-<h2>读写分离<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
-<p>juice 没有提供这样的功能，可能以后支持。</p>
-<p>但是可以给想要有这样需求的老表提供思路。</p>
-<p>还是记得我们的提供的中间件的支持吗？</p>
+<section id="read-write-separation">
+<h2>Read-Write Separation<a class="headerlink" href="#read-write-separation" title="Permalink to this heading"></a></h2>
+<p>Juice does not currently support this feature but it may in the future. Here is a concept for developers interested in implementing read-write separation using middleware:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="c1">// Middleware is a wrapper of QueryHandler and ExecHandler.</span>
 <span class="kd">type</span><span class="w"> </span><span class="nx">Middleware</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// QueryContext wraps the QueryHandler.</span>
@@ -167,7 +163,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>下面是一个伪代码</p>
+<p>Pseudocode for Read-Write Middleware:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">ReadWriteMiddleware</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">slaves</span><span class="w"> </span><span class="p">[]</span><span class="o">*</span><span class="nx">sql</span><span class="p">.</span><span class="nx">DB</span>
 <span class="w">    </span><span class="nx">master</span><span class="w"> </span><span class="o">*</span><span class="nx">sql</span><span class="p">.</span><span class="nx">DB</span>
@@ -175,7 +171,6 @@
 
 <span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="nx">ReadWriteMiddleware</span><span class="p">)</span><span class="w"> </span><span class="nx">QueryContext</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="o">*</span><span class="nx">juice</span><span class="p">.</span><span class="nx">Statement</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="w"> </span><span class="nx">juice</span><span class="p">.</span><span class="nx">QueryHandler</span><span class="p">)</span><span class="w"> </span><span class="nx">juice</span><span class="p">.</span><span class="nx">QueryHandler</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">query</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="w"> </span><span class="o">...</span><span class="kt">any</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">sql</span><span class="p">.</span><span class="nx">Rows</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// 随机选择一个</span>
 <span class="w">        </span><span class="nx">index</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rand</span><span class="p">.</span><span class="nx">Intn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">slaves</span><span class="p">))</span>
 <span class="w">        </span><span class="nx">db</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">slaves</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span>
 <span class="w">        </span><span class="nx">ctx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">juice</span><span class="p">.</span><span class="nx">SessionWithContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">db</span><span class="p">)</span>
@@ -193,46 +188,45 @@
 </div>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>注意：数据库读写分离虽然可以提高应用程序的性能，但同时也会带来事务处理的问题。如上面的中间件的实现会覆盖所有的session，如果当前的session是一个事务，那么会导致事务的操作失效，具体的业务逻辑需要开发者自己实现。</p>
+<p>Note: Although database read-write separation can improve application performance, it can also introduce transaction management issues, as the middleware implementation may override all sessions. If the current session involves a transaction, this might invalidate transaction operations. Specific business logic must be implemented by developers.</p>
 </div>
 </section>
-<section id="id4">
-<h2>链路追踪<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
-<p>跟上面读写分离一个道理，想要对实现代码的无侵入式的增加新功能，我们可以利用中间件来链路追踪。</p>
-<p>下面是一个伪代码</p>
+<section id="tracing-middleware">
+<h2>Tracing Middleware<a class="headerlink" href="#tracing-middleware" title="Permalink to this heading"></a></h2>
+<p>Similarly to the read-write separation, tracing functionality can be added non-intrusively using middleware. Here is a pseudocode example:</p>
 <div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">TraceMiddleware</span><span class="w"> </span><span class="kd">struct</span><span class="p">{}</span>
 
 <span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="nx">TraceMiddleware</span><span class="p">)</span><span class="w"> </span><span class="nx">QueryContext</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="o">*</span><span class="nx">juice</span><span class="p">.</span><span class="nx">Statement</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="w"> </span><span class="nx">juice</span><span class="p">.</span><span class="nx">QueryHandler</span><span class="p">)</span><span class="w"> </span><span class="nx">juice</span><span class="p">.</span><span class="nx">QueryHandler</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">query</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="w"> </span><span class="o">...</span><span class="kt">any</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">sql</span><span class="p">.</span><span class="nx">Rows</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">trace</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;query&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">query</span><span class="p">)</span><span class="w"> </span><span class="c1">// your own trace</span>
+<span class="w">        </span><span class="nx">trace</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;query&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">query</span><span class="p">)</span><span class="w">  </span><span class="c1">// your own trace implementation</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">next</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">query</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="o">...</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="nx">TraceMiddleware</span><span class="p">)</span><span class="w"> </span><span class="nx">ExecContext</span><span class="p">(</span><span class="nx">stmt</span><span class="w"> </span><span class="o">*</span><span class="nx">juice</span><span class="p">.</span><span class="nx">Statement</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="w"> </span><span class="nx">juice</span><span class="p">.</span><span class="nx">ExecHandler</span><span class="p">)</span><span class="w"> </span><span class="nx">juice</span><span class="p">.</span><span class="nx">ExecHandler</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">query</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="w"> </span><span class="o">...</span><span class="kt">any</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">sql</span><span class="p">.</span><span class="nx">Result</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">trace</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;exec&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">query</span><span class="p">)</span><span class="w"> </span><span class="c1">// your own trace</span>
+<span class="w">        </span><span class="nx">trace</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;exec&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">query</span><span class="p">)</span><span class="w">  </span><span class="c1">// your own trace implementation</span>
 <span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">next</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">query</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="o">...</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </section>
-<section id="xml">
-<h2>XML文档约束<a class="headerlink" href="#xml" title="Permalink to this heading"></a></h2>
-<p>XML 文档约束（XML Document Type Definition，DTD）是一种用于定义 XML 文档结构和规则的文档类型定义语言。通过使用 DTD，我们可以约束一个 XML 文档只能包括哪些元素、元素的属性、元素之间的关系和顺序等信息。</p>
-<p>在实际应用中，通常需要将 DTD 文件与 XML 文档关联起来，以便在解析 XML 文档时自动进行验证。在 XML 文档中，可以通过 &lt;!DOCTYPE&gt; 元素来指定 DTD 文件及其位置。</p>
-<p>举例来说，在 juice 的配置文件 config.xml 或者 mapper.xml 中，我们可以通过指定 &lt;!DOCTYPE&gt; 元素中的 PUBLIC 属性和 URI 来关联 DTD 文件。这样，当我们在编辑器或者其他工具中打开 XML 文件时，就可以根据 DTD 定义的规则检查 XML 文档是否符合规范，并且发现潜在的错误和问题。</p>
-<p>config xml</p>
+<section id="xml-document-constraint">
+<h2>XML Document Constraint<a class="headerlink" href="#xml-document-constraint" title="Permalink to this heading"></a></h2>
+<p>XML Document Type Definition (DTD) is a language used to define the structure and rules of an XML document. By using a DTD, you can constrain an XML document to include specific elements, attributes, relationships, and sequences.</p>
+<p>In practical applications, it is common to associate a DTD file with an XML document to validate it during parsing. In the XML document, you can specify the DTD file and its location using the &lt;!DOCTYPE&gt; element.</p>
+<p>For example, in the Juice configuration files like <cite>config.xml</cite> or <cite>mapper.xml</cite>, you can associate a DTD file by specifying the PUBLIC attribute and URI in the &lt;!DOCTYPE&gt; element. This allows editors or other tools to check the XML document against the defined DTD rules and identify potential errors and issues.</p>
+<p>config xml:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 <span class="cp">&lt;!DOCTYPE configuration PUBLIC &quot;-//juice.org//DTD Config 1.0//EN&quot;</span>
-<span class="cp">        &quot;https://raw.githubusercontent.com/eatmoreapple/juice/main/config.dtd&quot;&gt;</span>
+<span class="cp">&quot;https://raw.githubusercontent.com/eatmoreapple/juice/main/config.dtd&quot;&gt;</span>
 </pre></div>
 </div>
-<p>mapper xml</p>
+<p>mapper xml:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span>
 <span class="cp">&lt;!DOCTYPE mapper PUBLIC &quot;-//juice.org//DTD Config 1.0//EN&quot;</span>
-<span class="cp">        &quot;https://raw.githubusercontent.com/eatmoreapple/juice/main/mapper.dtd&quot;&gt;</span>
+<span class="cp">&quot;https://raw.githubusercontent.com/eatmoreapple/juice/main/mapper.dtd&quot;&gt;</span>
 </pre></div>
 </div>
 </section>
@@ -242,7 +236,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="code_generate.html" class="btn btn-neutral float-left" title="代码生成" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="code_generate.html" class="btn btn-neutral float-left" title="Code Generation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="eatmoreapple.html" class="btn btn-neutral float-right" title="吃包辣条" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
